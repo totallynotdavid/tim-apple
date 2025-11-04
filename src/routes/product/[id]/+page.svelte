@@ -1,7 +1,13 @@
 <script lang="ts">
+import type { ProductBadgeItem, ProductMediaItem, ProductDescriptionItem, ProductRatingItem } from "$lib/types";
+import AppIcon from "$lib/components/items/AppIcon.svelte";
+import ProductBadge from "$lib/components/items/ProductBadge.svelte";
+import ProductMedia from "$lib/components/items/ProductMedia.svelte";
+import Shelf from "$lib/components/shared/Shelf.svelte";
+import StarRating from "$lib/components/shared/StarRating.svelte";
 import { mockData } from "$lib/data/mock-data";
 
-const _page = mockData.productPage;
+const page = mockData.productPage;
 </script>
 
 <svelte:head>
@@ -38,40 +44,41 @@ const _page = mockData.productPage;
         {#if shelf.contentType === "badge"}
             <section class="badges">
                 {#each shelf.items as item}
-                    <ProductBadge {item} />
+                    <ProductBadge item={item as ProductBadgeItem} />
                 {/each}
             </section>
         {:else if shelf.contentType === "media"}
             <Shelf {shelf} horizontal>
                 {#each shelf.items as item}
-                    <ProductMedia {item} />
+                    <ProductMedia item={item as ProductMediaItem} />
                 {/each}
             </Shelf>
         {:else if shelf.contentType === "description"}
             <section class="description">
                 {#each shelf.items as item}
-                    <p>{item.text}</p>
+                    <p>{(item as ProductDescriptionItem).text}</p>
                 {/each}
             </section>
         {:else if shelf.contentType === "rating"}
             <Shelf {shelf}>
                 {#each shelf.items as item}
+                    {@const ratingItem = item as ProductRatingItem}
                     <div class="rating-summary">
                         <div class="rating-score">
-                            <div class="rating-number">{item.average}</div>
+                            <div class="rating-number">{ratingItem.average}</div>
                             <p>out of 5</p>
                         </div>
 
                         <div class="rating-details">
                             <div class="rating-bars">
-                                {#each item.distribution as count, i}
+                                {#each ratingItem.distribution as count, i}
                                     <div class="rating-bar">
                                         <StarRating rating={5 - i} />
                                         <div class="bar">
                                             <div
                                                 class="bar-fill"
                                                 style:width="{(count /
-                                                    item.count) *
+                                                    ratingItem.count) *
                                                     100}%"
                                             ></div>
                                         </div>
@@ -79,7 +86,7 @@ const _page = mockData.productPage;
                                 {/each}
                             </div>
                             <p class="rating-count">
-                                {item.count.toLocaleString()} Ratings
+                                {ratingItem.count.toLocaleString()} Ratings
                             </p>
                         </div>
                     </div>

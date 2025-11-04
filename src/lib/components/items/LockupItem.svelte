@@ -3,7 +3,7 @@ import type { LockupItem } from "$lib/types";
 import AppIcon from "./AppIcon.svelte";
 
 export let item: LockupItem;
-export const size: "small" | "medium" = "small";
+export let size: "small" | "medium" = "small";
 </script>
 
 <a href={item.url} class="lockup lockup-{size}">

@@ -2,9 +2,9 @@
 import type { Artwork } from "$lib/types";
 
 export let icon: Artwork;
-export const size: "small" | "medium" | "large" = "medium";
+export let size: "small" | "medium" | "large" = "medium";
 
-const _sizes = {
+const sizes = {
 	small: "64px",
 	medium: "100px",
 	large: "128px",

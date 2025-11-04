@@ -1,4 +1,6 @@
 <script lang="ts">
+import AppIcon from "$lib/components/items/AppIcon.svelte";
+import Artwork from "$lib/components/shared/Artwork.svelte";
 import type { TodayCard } from "$lib/types";
 
 export let card: TodayCard;

@@ -2,7 +2,7 @@
 import type { Shelf } from "$lib/types";
 
 export let shelf: Shelf;
-export const horizontal = false;
+export let horizontal: boolean = false;
 </script>
 
 <section class="shelf">

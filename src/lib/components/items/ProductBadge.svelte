@@ -1,4 +1,5 @@
 <script lang="ts">
+import StarRating from "$lib/components/shared/StarRating.svelte";
 import type { ProductBadgeItem } from "$lib/types";
 
 export let item: ProductBadgeItem;
@@ -9,7 +10,9 @@ export let item: ProductBadgeItem;
     <div class="value">
         {#if item.type === "rating"}
             <span class="large">{item.text}</span>
-            <StarRating rating={item.rating} />
+            {#if item.rating !== undefined}
+                <StarRating rating={item.rating} />
+            {/if}
         {:else if item.type === "award"}
             <span>⭐</span>
         {:else}

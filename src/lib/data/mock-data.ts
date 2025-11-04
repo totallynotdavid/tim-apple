@@ -1,6 +1,5 @@
-import type { TodayCard } from "$lib/types";
+import type { TodayCard, ProductBadgeItem, ProductMediaItem, ProductDescriptionItem, ProductRatingItem, ArticleTextItem, ArticleImageItem } from "$lib/types";
 
-// Helper to create mock artwork
 const artwork = (w: number, h: number, text = "") => ({
 	url: `https://placehold.co/${w}x${h}/EEE/31343C?text=${text}`,
 	width: w,
@@ -9,7 +8,6 @@ const artwork = (w: number, h: number, text = "") => ({
 });
 
 export const mockData = {
-	// Navigation data
 	navigation: {
 		tabs: [
 			{ id: "today", label: "Today", url: "/", icon: "📱" },
@@ -19,7 +17,6 @@ export const mockData = {
 		],
 	},
 
-	// Today page
 	todayPage: {
 		title: "Today",
 		shelves: [
@@ -74,7 +71,6 @@ export const mockData = {
 		],
 	},
 
-	// Article page
 	articlePage: {
 		card: {
 			title: "Procreate Dreams: Animation for Everyone",
@@ -89,12 +85,12 @@ export const mockData = {
 				items: [
 					{
 						text: "Create captivating animations, faster than ever. Procreate Dreams is an all-new animation app packed with powerful tools that anyone can use.",
-					},
+					} as ArticleTextItem,
 				],
 			},
 			{
 				contentType: "image",
-				items: [{ artwork: artwork(1200, 675, "Feature") }],
+				items: [{ artwork: artwork(1200, 675, "Feature") } as ArticleImageItem],
 			},
 		],
 		footerApp: {
@@ -105,7 +101,6 @@ export const mockData = {
 		},
 	},
 
-	// Product page
 	productPage: {
 		title: "Procreate",
 		icon: artwork(200, 200, "Procreate"),
@@ -115,17 +110,17 @@ export const mockData = {
 			{
 				contentType: "badge",
 				items: [
-					{ type: "rating", heading: "Rating", rating: 4.5, text: "4.5" },
-					{ type: "award", heading: "Editor's Choice" },
-					{ type: "age", heading: "Age", text: "4+" },
+					{ type: "rating", heading: "Rating", rating: 4.5, text: "4.5" } as ProductBadgeItem,
+					{ type: "award", heading: "Editor's Choice" } as ProductBadgeItem,
+					{ type: "age", heading: "Age", text: "4+" } as ProductBadgeItem,
 				],
 			},
 			{
 				contentType: "media",
 				items: [
-					{ screenshot: artwork(1600, 900, "SS1") },
-					{ screenshot: artwork(1600, 900, "SS2") },
-					{ screenshot: artwork(1600, 900, "SS3") },
+					{ screenshot: artwork(1600, 900, "SS1") } as ProductMediaItem,
+					{ screenshot: artwork(1600, 900, "SS2") } as ProductMediaItem,
+					{ screenshot: artwork(1600, 900, "SS3") } as ProductMediaItem,
 				],
 			},
 			{
@@ -133,7 +128,7 @@ export const mockData = {
 				items: [
 					{
 						text: "Loved by creative pros, Procreate is the leading creative application made for iPad. Offering hundreds of handmade brushes, a suite of innovative artistic tools, an advanced layer system, and the lightning fast Valkyrie graphics engine.",
-					},
+					} as ProductDescriptionItem,
 				],
 			},
 			{
@@ -144,13 +139,12 @@ export const mockData = {
 						average: 4.5,
 						count: 135000,
 						distribution: [500, 1000, 2000, 15000, 116500].reverse(),
-					},
+					} as ProductRatingItem,
 				],
 			},
 		],
 	},
 
-	// Search page
 	searchPage: {
 		title: "Search",
 		shelves: [

@@ -1,6 +1,6 @@
 <script lang="ts">
 export let artwork: { url: string; width: number; height: number };
-export const alt = "";
+export let alt: string = "";
 </script>
 
 <img

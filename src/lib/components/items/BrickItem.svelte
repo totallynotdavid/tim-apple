@@ -1,4 +1,5 @@
 <script lang="ts">
+import Artwork from "$lib/components/shared/Artwork.svelte";
 import type { BrickItem } from "$lib/types";
 
 export let item: BrickItem;

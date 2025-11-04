@@ -32,6 +32,24 @@ export interface ProductMediaItem {
 	screenshot: Artwork;
 }
 
+export interface ProductDescriptionItem {
+	text: string;
+}
+
+export interface ProductRatingItem {
+	average: number;
+	count: number;
+	distribution: number[];
+}
+
+export interface ArticleTextItem {
+	text: string;
+}
+
+export interface ArticleImageItem {
+	artwork: Artwork;
+}
+
 export interface SearchLink {
 	title: string;
 	url: string;
@@ -57,5 +75,6 @@ export interface Shelf {
 	id?: string;
 	title?: string;
 	contentType?: string;
+	seeAllUrl?: string;
 	items: unknown[];
 }

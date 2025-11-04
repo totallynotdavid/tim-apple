@@ -1,7 +1,11 @@
 <script lang="ts">
+import type { ArticleTextItem, ArticleImageItem } from "$lib/types";
+import AppIcon from "$lib/components/items/AppIcon.svelte";
+import TodayCard from "$lib/components/items/TodayCard.svelte";
+import Artwork from "$lib/components/shared/Artwork.svelte";
 import { mockData } from "$lib/data/mock-data";
 
-const _page = mockData.articlePage;
+const page = mockData.articlePage;
 </script>
 
 <svelte:head>
@@ -18,14 +22,14 @@ const _page = mockData.articlePage;
             {#if shelf.contentType === "text"}
                 <section class="text-section">
                     {#each shelf.items as item}
-                        <p>{item.text}</p>
+                        <p>{(item as ArticleTextItem).text}</p>
                     {/each}
                 </section>
             {:else if shelf.contentType === "image"}
                 <section class="image-section">
                     {#each shelf.items as item}
                         <div class="featured-image">
-                            <Artwork artwork={item.artwork} alt="" />
+                            <Artwork artwork={(item as ArticleImageItem).artwork} alt="" />
                         </div>
                     {/each}
                 </section>
