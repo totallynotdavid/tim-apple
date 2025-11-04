@@ -1,6 +1,5 @@
 <script lang="ts">
 import { mockData } from "$lib/data/mock-data";
-import Shelf from "$lib/components/shared/Shelf.svelte";
 
 let page = mockData.searchPage;
 let searchQuery = $state("");
