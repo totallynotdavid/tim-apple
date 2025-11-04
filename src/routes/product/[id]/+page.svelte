@@ -1,11 +1,16 @@
 <script lang="ts">
-import type { ProductBadgeItem, ProductMediaItem, ProductDescriptionItem, ProductRatingItem } from "$lib/types";
 import AppIcon from "$lib/components/items/AppIcon.svelte";
 import ProductBadge from "$lib/components/items/ProductBadge.svelte";
 import ProductMedia from "$lib/components/items/ProductMedia.svelte";
 import Shelf from "$lib/components/shared/Shelf.svelte";
 import StarRating from "$lib/components/shared/StarRating.svelte";
 import { mockData } from "$lib/data/mock-data";
+import type {
+	ProductBadgeItem,
+	ProductDescriptionItem,
+	ProductMediaItem,
+	ProductRatingItem,
+} from "$lib/types";
 
 const page = mockData.productPage;
 </script>

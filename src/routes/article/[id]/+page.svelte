@@ -1,9 +1,9 @@
 <script lang="ts">
-import type { ArticleTextItem, ArticleImageItem } from "$lib/types";
 import AppIcon from "$lib/components/items/AppIcon.svelte";
 import TodayCard from "$lib/components/items/TodayCard.svelte";
 import Artwork from "$lib/components/shared/Artwork.svelte";
 import { mockData } from "$lib/data/mock-data";
+import type { ArticleImageItem, ArticleTextItem } from "$lib/types";
 
 const page = mockData.articlePage;
 </script>

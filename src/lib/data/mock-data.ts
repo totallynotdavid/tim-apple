@@ -1,4 +1,12 @@
-import type { TodayCard, ProductBadgeItem, ProductMediaItem, ProductDescriptionItem, ProductRatingItem, ArticleTextItem, ArticleImageItem } from "$lib/types";
+import type {
+	ArticleImageItem,
+	ArticleTextItem,
+	ProductBadgeItem,
+	ProductDescriptionItem,
+	ProductMediaItem,
+	ProductRatingItem,
+	TodayCard,
+} from "$lib/types";
 
 const artwork = (w: number, h: number, text = "") => ({
 	url: `https://placehold.co/${w}x${h}/EEE/31343C?text=${text}`,
@@ -110,7 +118,12 @@ export const mockData = {
 			{
 				contentType: "badge",
 				items: [
-					{ type: "rating", heading: "Rating", rating: 4.5, text: "4.5" } as ProductBadgeItem,
+					{
+						type: "rating",
+						heading: "Rating",
+						rating: 4.5,
+						text: "4.5",
+					} as ProductBadgeItem,
 					{ type: "award", heading: "Editor's Choice" } as ProductBadgeItem,
 					{ type: "age", heading: "Age", text: "4+" } as ProductBadgeItem,
 				],
