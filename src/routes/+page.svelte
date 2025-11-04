@@ -1,7 +1,7 @@
 <script lang="ts">
-import { mockData } from "$lib/data/mock-data";
-import Shelf from "$lib/components/shared/Shelf.svelte";
 import TodayCard from "$lib/components/items/TodayCard.svelte";
+import Shelf from "$lib/components/shared/Shelf.svelte";
+import { mockData } from "$lib/data/mock-data";
 
 const page = mockData.todayPage;
 </script>

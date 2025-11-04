@@ -1,7 +1,7 @@
 <script lang="ts">
-import { page } from '$app/state';
-import NavigationItem from './NavigationItem.svelte';
-import { mockData } from '$lib/data/mock-data';
+import { page } from "$app/state";
+import { mockData } from "$lib/data/mock-data";
+import NavigationItem from "./NavigationItem.svelte";
 
 let menuOpen = false;
 
