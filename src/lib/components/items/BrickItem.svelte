@@ -1,5 +1,7 @@
 <script lang="ts">
-export let item: any;
+import type { BrickItem } from "$lib/types";
+
+export let item: BrickItem;
 </script>
 
 <a href={item.url} class="brick">

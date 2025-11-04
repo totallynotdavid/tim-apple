@@ -1,8 +1,9 @@
 <script lang="ts">
 import { mockData } from "$lib/data/mock-data";
+import Shelf from "$lib/components/shared/Shelf.svelte";
 
-const _page = mockData.searchPage;
-const _searchQuery = "";
+let page = mockData.searchPage;
+let searchQuery = $state("");
 </script>
 
 <svelte:head>
@@ -13,7 +14,7 @@ const _searchQuery = "";
     <div class="search-header">
         <h1>{page.title}</h1>
 
-        <form class="search-form" on:submit|preventDefault>
+        <form class="search-form" onsubmit={(e) => e.preventDefault()}>
             <div class="search-input">
                 <svg
                     width="20"

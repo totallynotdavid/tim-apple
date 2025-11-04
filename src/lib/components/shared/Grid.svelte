@@ -1,5 +1,7 @@
 <script lang="ts">
-export let items: any[];
+import type { GridItem } from "$lib/types";
+
+export let items: GridItem[];
 export const columns = 3;
 </script>
 

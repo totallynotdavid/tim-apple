@@ -1,5 +1,7 @@
 <script lang="ts">
-export let item: any;
+import type { LockupItem } from "$lib/types";
+
+export let item: LockupItem;
 export const size: "small" | "medium" = "small";
 </script>
 

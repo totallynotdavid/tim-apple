@@ -1,5 +1,7 @@
 <script lang="ts">
-export let tab: any;
+import type { NavigationTab } from "$lib/types";
+
+export let tab: NavigationTab;
 export const active = false;
 </script>
 

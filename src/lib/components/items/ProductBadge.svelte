@@ -1,5 +1,7 @@
 <script lang="ts">
-export let item: any;
+import type { ProductBadgeItem } from "$lib/types";
+
+export let item: ProductBadgeItem;
 </script>
 
 <div class="badge">

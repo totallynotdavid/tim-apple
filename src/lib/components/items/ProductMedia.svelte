@@ -1,5 +1,7 @@
 <script lang="ts">
-export let item: any;
+import type { ProductMediaItem } from "$lib/types";
+
+export let item: ProductMediaItem;
 </script>
 
 <div class="media">

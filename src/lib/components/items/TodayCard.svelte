@@ -1,5 +1,7 @@
 <script lang="ts">
-export let card: any;
+import type { TodayCard } from "$lib/types";
+
+export let card: TodayCard;
 
 $: bgColor = card.style === "dark" ? "#333" : "#fff";
 $: textColor = card.style === "dark" ? "#fff" : "#000";

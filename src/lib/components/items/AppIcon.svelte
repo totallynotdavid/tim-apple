@@ -1,5 +1,7 @@
 <script lang="ts">
-export let icon: any;
+import type { Artwork } from "$lib/types";
+
+export let icon: Artwork;
 export const size: "small" | "medium" | "large" = "medium";
 
 const _sizes = {

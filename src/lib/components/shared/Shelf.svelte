@@ -1,5 +1,7 @@
 <script lang="ts">
-export let shelf: any;
+import type { Shelf } from "$lib/types";
+
+export let shelf: Shelf;
 export const horizontal = false;
 </script>
 
