@@ -1,4 +1,7 @@
 <script lang="ts">
+import Navigation from "$lib/components/layout/Navigation.svelte"
+import Footer from "$lib/components/layout/Footer.svelte"
+
 import "../app.scss";
 </script>
 

@@ -1,7 +1,9 @@
 <script lang="ts">
 import { mockData } from "$lib/data/mock-data";
+import Shelf from "$lib/components/shared/Shelf.svelte";
+import TodayCard from "$lib/components/items/TodayCard.svelte";
 
-const _page = mockData.todayPage;
+const page = mockData.todayPage;
 </script>
 
 <svelte:head>

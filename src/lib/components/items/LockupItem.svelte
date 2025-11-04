@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { LockupItem } from "$lib/types";
+import AppIcon from "./AppIcon.svelte";
 
 export let item: LockupItem;
 export const size: "small" | "medium" = "small";

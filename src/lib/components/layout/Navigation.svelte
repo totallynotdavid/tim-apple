@@ -1,7 +1,11 @@
 <script lang="ts">
-const _menuOpen = false;
+import { page } from '$app/state';
+import NavigationItem from './NavigationItem.svelte';
+import { mockData } from '$lib/data/mock-data';
 
-$: currentPath = $page.url.pathname;
+let menuOpen = false;
+
+$: currentPath = page.url.pathname;
 </script>
 
 <nav class="navigation" class:menu-open={menuOpen}>

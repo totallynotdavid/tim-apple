@@ -2,7 +2,7 @@
 import type { NavigationTab } from "$lib/types";
 
 export let tab: NavigationTab;
-export const active = false;
+export let active: boolean = false;
 </script>
 
 <a href={tab.url} class="nav-item" class:active>

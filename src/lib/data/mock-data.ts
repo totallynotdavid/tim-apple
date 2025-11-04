@@ -1,3 +1,5 @@
+import type { TodayCard } from "$lib/types";
+
 // Helper to create mock artwork
 const artwork = (w: number, h: number, text = "") => ({
 	url: `https://placehold.co/${w}x${h}/EEE/31343C?text=${text}`,
@@ -31,14 +33,14 @@ export const mockData = {
 						style: "dark",
 						media: artwork(800, 600, "Procreate"),
 						url: "/article/1",
-					},
+					} as TodayCard,
 					{
 						title: "Stumble Guys",
 						heading: "Game of the Day",
 						style: "dark",
 						media: artwork(800, 600, "Stumble"),
 						url: "/product/1",
-					},
+					} as TodayCard,
 				],
 			},
 			{
@@ -51,14 +53,14 @@ export const mockData = {
 						style: "dark",
 						media: artwork(400, 600, "Subway"),
 						url: "/product/2",
-					},
+					} as TodayCard,
 					{
 						title: "Best Apple Pencil Apps",
 						heading: "Get Creative",
 						style: "light",
 						media: artwork(400, 600, "Apps"),
 						url: "/article/2",
-					},
+					} as TodayCard,
 					{
 						title: "Notion",
 						heading: "App of the Day",
@@ -66,7 +68,7 @@ export const mockData = {
 						media: artwork(200, 200, "Notion"),
 						url: "/product/3",
 						isAppIcon: true,
-					},
+					} as TodayCard,
 				],
 			},
 		],
@@ -79,7 +81,8 @@ export const mockData = {
 			heading: "Now Available",
 			style: "dark",
 			media: artwork(800, 600, "Procreate"),
-		},
+			url: "/product/1",
+		} as TodayCard,
 		shelves: [
 			{
 				contentType: "text",
