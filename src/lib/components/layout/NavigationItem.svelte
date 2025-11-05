@@ -14,9 +14,9 @@ export let active: boolean = false;
     .nav-item {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 8px 12px;
-        border-radius: 8px;
+        gap: 8px;
+        padding: 4px;
+        border-radius: 6px;
         font: var(--title-2);
         color: var(--systemPrimary);
         text-decoration: none;
@@ -25,21 +25,34 @@ export let active: boolean = false;
 
     .nav-item:hover {
         background: var(--systemQuinary);
+        text-decoration: none;
     }
 
     .nav-item.active {
-        background: var(--systemQuinary);
+        background: var(--navSidebarSelectedState);
+        font-weight: 600;
     }
 
     .icon {
         font-size: 24px;
         width: 32px;
-        text-align: center;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    @media (max-width: 767px) {
+    @media (min-width: 768px) {
         .nav-item {
             font: var(--title-3);
+        }
+        .nav-item.active {
+            font: var(--title-3-medium);
+        }
+        .icon {
+            font-size: 20px;
+            width: 24px;
+            height: 24px;
         }
     }
 </style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import AppIcon from "$lib/components/items/AppIcon.svelte";
+import LockupItem from "$lib/components/items/LockupItem.svelte";
 import TodayCard from "$lib/components/items/TodayCard.svelte";
 import Artwork from "$lib/components/shared/Artwork.svelte";
 import { mockData } from "$lib/data/mock-data";
@@ -13,103 +13,144 @@ const page = mockData.articlePage;
 </svelte:head>
 
 <div class="article-page">
-    <div class="hero-card">
-        <TodayCard card={page.card} />
-    </div>
+    <div class="article-layout">
+        <div class="hero-card">
+            <TodayCard card={page.card} />
+        </div>
 
-    <article class="article-content">
-        {#each page.shelves as shelf}
-            {#if shelf.contentType === "text"}
-                <section class="text-section">
-                    {#each shelf.items as item}
-                        <p>{(item as ArticleTextItem).text}</p>
-                    {/each}
-                </section>
-            {:else if shelf.contentType === "image"}
-                <section class="image-section">
-                    {#each shelf.items as item}
-                        <div class="featured-image">
-                            <Artwork artwork={(item as ArticleImageItem).artwork} alt="" />
-                        </div>
-                    {/each}
-                </section>
-            {/if}
-        {/each}
+        <article class="article-content">
+            {#each page.shelves as shelf}
+                {#if shelf.contentType === 'text'}
+                    <section class="text-section">
+                        {#each shelf.items as item}
+                            <p>{(item as ArticleTextItem).text}</p>
+                        {/each}
+                    </section>
+                {:else if shelf.contentType === 'image'}
+                    <section class="image-section">
+                        {#each shelf.items as item}
+                            <div class="featured-image">
+                                <Artwork artwork={(item as ArticleImageItem).artwork} alt="" />
+                            </div>
+                        {/each}
+                    </section>
+                {/if}
+            {/each}
 
-        {#if page.footerApp}
-            <a href={page.footerApp.url} class="footer-app">
-                <AppIcon icon={page.footerApp.icon} size="large" />
-                <div class="footer-app-info">
-                    <h3>{page.footerApp.title}</h3>
-                    <p>{page.footerApp.subtitle}</p>
+            {#if page.footerApp}
+                <div class="footer-app">
+                    <LockupItem item={page.footerApp} buttonVariant="blue" size="medium" />
                 </div>
-                <span class="btn btn-blue">View</span>
-            </a>
-        {/if}
-    </article>
+            {/if}
+        </article>
+    </div>
 </div>
 
 <style>
     .article-page {
-        display: grid;
-        gap: 32px;
-        padding: 32px var(--bodyGutter);
+        flex-grow: 1;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .article-layout {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+        .article-layout {
+            padding: 2em var(--bodyGutter);
+        }
     }
 
     @media (min-width: 1024px) {
-        .article-page {
-            grid-template-columns: 1fr 1.5fr;
-            align-items: start;
-        }
-
-        .hero-card {
-            position: sticky;
-            top: 32px;
+        .article-layout {
+            flex-direction: row;
+            align-items: flex-start;
         }
     }
 
     .hero-card {
-        aspect-ratio: 3/4;
-        max-height: 700px;
+        flex-shrink: 0;
+        aspect-ratio: 3 / 4;
+        width: 100%;
+    }
+
+    @media (max-width: 767px) {
+        .hero-card :global(.today-card) {
+            --border-radius: 0;
+        }
+    }
+    @media (min-width: 768px) {
+        .hero-card {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+    }
+    @media (min-width: 1024px) {
+        .hero-card {
+            position: sticky;
+            top: 2em;
+            aspect-ratio: 3 / 4;
+            height: min(calc(100vh - 4em), calc(33vw * 4 / 3));
+            min-height: 420px;
+            max-height: 700px;
+            width: auto;
+        }
     }
 
     .article-content {
+        width: 100%;
+        margin-top: 20px;
+        padding-bottom: var(--bodyGutter);
         display: flex;
         flex-direction: column;
         gap: 32px;
+    }
+
+    @media (min-width: 768px) {
+        .article-content {
+            width: 100%;
+            margin-top: 0;
+        }
+    }
+    @media (min-width: 1024px) {
+        .article-content {
+            min-width: calc(50% - 20px);
+        }
     }
 
     .text-section p {
         font: var(--body);
         line-height: 1.6;
         color: var(--systemPrimary);
+        padding: 0 var(--bodyGutter);
     }
 
     .featured-image {
         border-radius: var(--border-radius-large);
         overflow: hidden;
+        margin: 0 var(--bodyGutter);
     }
 
     .footer-app {
-        display: flex;
-        align-items: center;
-        gap: 16px;
         padding: 24px;
         background: var(--systemQuinary);
         border-radius: var(--border-radius-medium);
-        text-decoration: none;
+        margin: 0 var(--bodyGutter);
     }
 
-    .footer-app-info {
-        flex: 1;
-    }
-
-    .footer-app h3 {
+    .footer-app :global(h3) {
         font: var(--title-2);
         color: var(--systemPrimary);
     }
 
-    .footer-app p {
+    .footer-app :global(p) {
         font: var(--callout);
         color: var(--systemSecondary);
     }

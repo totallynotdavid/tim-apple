@@ -13,14 +13,17 @@ const page = mockData.todayPage;
 <div class="today-page">
     <h1>{page.title}</h1>
 
-    {#each page.shelves as shelf}
+    {#each page.shelves as shelf, i}
+        {@const stretchFirst = i % 2 === 0}
         <Shelf {shelf}>
-            <div class="today-cards">
+            <div
+                class="today-cards"
+                class:single-card={shelf.items.length === 1}
+                class:two-cards={shelf.items.length === 2}
+                class:stretch-first={stretchFirst}
+            >
                 {#each shelf.items as card}
-                    <div
-                        class="card-wrapper"
-                        class:stretch={shelf.items.length === 1}
-                    >
+                    <div class="card-wrapper">
                         <TodayCard {card} />
                     </div>
                 {/each}
@@ -35,7 +38,7 @@ const page = mockData.todayPage;
     }
 
     h1 {
-        font: var(--large-title);
+        font: var(--large-title-emphasized);
         padding: 0 var(--bodyGutter);
         margin-bottom: 20px;
     }
@@ -48,9 +51,10 @@ const page = mockData.todayPage;
 
     .card-wrapper {
         max-height: 600px;
+        min-height: 100px;
     }
 
-    .card-wrapper.stretch {
+    .today-cards.single-card .card-wrapper {
         aspect-ratio: 16/9;
         max-height: none;
     }
@@ -60,8 +64,16 @@ const page = mockData.todayPage;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         }
 
-        .card-wrapper.stretch {
+        .today-cards.single-card .card-wrapper {
             grid-column: 1 / -1;
+        }
+
+        .today-cards.two-cards.stretch-first .card-wrapper:first-child {
+            grid-column: 1 / 3;
+        }
+
+        .today-cards.two-cards:not(.stretch-first) .card-wrapper:last-child {
+            grid-column: 1 / 3;
         }
     }
 </style>

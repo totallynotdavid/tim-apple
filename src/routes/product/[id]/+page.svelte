@@ -2,6 +2,7 @@
 import AppIcon from "$lib/components/items/AppIcon.svelte";
 import ProductBadge from "$lib/components/items/ProductBadge.svelte";
 import ProductMedia from "$lib/components/items/ProductMedia.svelte";
+import ShareArrowButton from "$lib/components/shared/ShareArrowButton.svelte";
 import Shelf from "$lib/components/shared/Shelf.svelte";
 import StarRating from "$lib/components/shared/StarRating.svelte";
 import { mockData } from "$lib/data/mock-data";
@@ -13,6 +14,8 @@ import type {
 } from "$lib/types";
 
 const page = mockData.productPage;
+
+const backgroundImage = `https://placehold.co/1200x400/EEE/31343C?text=`;
 </script>
 
 <svelte:head>
@@ -20,51 +23,46 @@ const page = mockData.productPage;
 </svelte:head>
 
 <div class="product-page">
-    <header class="product-header">
+    <header
+        class="product-header"
+        style:--background-image="url({backgroundImage})"
+    >
+        <div class="blur-layer"></div>
         <div class="header-content">
-            <AppIcon icon={page.icon} size="large" />
+            <AppIcon icon={page.icon} size="large" withBorder />
 
             <div class="header-info">
                 <h1>{page.title}</h1>
                 <p class="subtitle">{page.subtitle}</p>
-            </div>
-        </div>
 
-        <div class="header-actions">
-            <span class="btn btn-blue">{page.price}</span>
-            <button class="share-btn" aria-label="Share">
-                <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                >
-                    <path d="M10 3v10m0-10l-4 4m4-4l4 4M4 13v4h12v-4" />
-                </svg>
-            </button>
+                <div class="header-actions">
+                    <span class="get-button blue">{page.price}</span>
+                    <ShareArrowButton url={page.icon.url} />
+                </div>
+            </div>
         </div>
     </header>
 
     {#each page.shelves as shelf}
-        {#if shelf.contentType === "badge"}
+        {#if shelf.contentType === 'badge'}
             <section class="badges">
                 {#each shelf.items as item}
                     <ProductBadge item={item as ProductBadgeItem} />
                 {/each}
             </section>
-        {:else if shelf.contentType === "media"}
+        {:else if shelf.contentType === 'media'}
             <Shelf {shelf} horizontal>
                 {#each shelf.items as item}
                     <ProductMedia item={item as ProductMediaItem} />
                 {/each}
             </Shelf>
-        {:else if shelf.contentType === "description"}
+        {:else if shelf.contentType === 'description'}
             <section class="description">
                 {#each shelf.items as item}
                     <p>{(item as ProductDescriptionItem).text}</p>
                 {/each}
             </section>
-        {:else if shelf.contentType === "rating"}
+        {:else if shelf.contentType === 'rating'}
             <Shelf {shelf}>
                 {#each shelf.items as item}
                     {@const ratingItem = item as ProductRatingItem}
@@ -107,21 +105,44 @@ const page = mockData.productPage;
     }
 
     .product-header {
-        padding: 20px var(--bodyGutter);
-        background: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0.05),
-            transparent
-        );
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 286px;
+        color: var(--systemPrimary-onDark);
+        background:
+            linear-gradient(to bottom, transparent 20%, rgba(0, 0, 0, 0.8) 100%),
+            var(--background-image),
+            var(--pageBg);
+        background-size: cover;
+        background-position: center;
         border-bottom: 1px solid var(--systemQuaternary);
-        margin-bottom: 32px;
+    }
+
+    .blur-layer {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(100px) saturate(1.5);
     }
 
     .header-content {
+        position: relative;
+        z-index: 2;
         display: flex;
-        gap: 16px;
+        gap: 1.5em;
         align-items: center;
-        margin-bottom: 16px;
+        margin: 0 var(--bodyGutter);
+        max-width: 840px;
+    }
+
+    @media (min-width: 1068px) {
+        .header-content {
+            margin: 0 auto;
+        }
     }
 
     .header-info {
@@ -130,38 +151,32 @@ const page = mockData.productPage;
     }
 
     h1 {
-        font: var(--large-title);
-        color: var(--systemPrimary);
+        font: var(--header-emphasized);
+        color: var(--systemPrimary-onDark);
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     }
 
     .subtitle {
         font: var(--title-2);
-        color: var(--systemSecondary);
+        color: var(--systemPrimary-onDark);
+        mix-blend-mode: plus-lighter;
     }
 
     .header-actions {
         display: flex;
         gap: 12px;
         align-items: center;
-    }
-
-    .share-btn {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: var(--systemQuinary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--keyColor);
+        margin-top: 10px;
     }
 
     .badges {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
         gap: 16px;
         padding: 0 var(--bodyGutter);
-        margin-bottom: 32px;
+        margin: 32px auto;
+        width: 100%;
+        max-width: 840px;
     }
 
     .description {
@@ -234,9 +249,25 @@ const page = mockData.productPage;
     }
 
     @media (max-width: 767px) {
+        .product-header {
+            height: 200px;
+        }
         .rating-summary {
             flex-direction: column;
             align-items: center;
+        }
+
+        .header-content {
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: center;
+        }
+
+        .header-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
         }
     }
 </style>

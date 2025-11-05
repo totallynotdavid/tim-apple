@@ -4,10 +4,11 @@ import AppIcon from "./AppIcon.svelte";
 
 export let item: LockupItem;
 export let size: "small" | "medium" = "small";
+export let buttonVariant: "gray" | "blue" | "transparent" = "gray";
 </script>
 
 <a href={item.url} class="lockup lockup-{size}">
-    <AppIcon icon={item.icon} size={size === "small" ? "small" : "medium"} />
+    <AppIcon icon={item.icon} size={size === 'small' ? 'small' : 'medium'} />
 
     <div class="info">
         <h3>{item.title}</h3>
@@ -16,7 +17,7 @@ export let size: "small" | "medium" = "small";
         {/if}
     </div>
 
-    <span class="btn btn-gray">View</span>
+    <span class="get-button {buttonVariant}">View</span>
 </a>
 
 <style>
@@ -50,5 +51,9 @@ export let size: "small" | "medium" = "small";
 
     .lockup-medium h3 {
         font: var(--title-2);
+    }
+
+    .button-container {
+        margin-inline-start: auto;
     }
 </style>

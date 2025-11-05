@@ -7,11 +7,12 @@ export let item: BrickItem;
 
 <a href={item.url} class="brick">
     <Artwork artwork={item.media} alt="" />
-    <div class="overlay">
+    <div class="overlay"></div>
+    <div class="text-container">
         {#if item.heading}
-            <p class="heading">{item.heading}</p>
+            <h4 class="heading">{item.heading}</h4>
         {/if}
-        <h3>{item.title}</h3>
+        <h3 class="title">{item.title}</h3>
     </div>
 </a>
 
@@ -38,18 +39,29 @@ export let item: BrickItem;
         bottom: 0;
         left: 0;
         right: 0;
-        padding: 20px;
+        height: 60%;
         background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+        border-radius: inherit;
+    }
+
+    .text-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
         color: white;
     }
 
     .heading {
-        font: var(--callout);
+        font: var(--callout-emphasized);
         opacity: 0.8;
         margin-bottom: 4px;
+        text-transform: uppercase;
     }
 
-    h3 {
-        font: var(--title-1);
+    .title {
+        font: var(--title-1-emphasized);
+        text-wrap: pretty;
     }
 </style>

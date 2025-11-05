@@ -3,7 +3,7 @@ import Shelf from "$lib/components/shared/Shelf.svelte";
 import { mockData } from "$lib/data/mock-data";
 
 let page = mockData.searchPage;
-let searchQuery = $state("");
+let searchQuery = "";
 </script>
 
 <svelte:head>
@@ -14,19 +14,22 @@ let searchQuery = $state("");
     <div class="search-header">
         <h1>{page.title}</h1>
 
-        <form class="search-form" onsubmit={(e) => e.preventDefault()}>
-            <div class="search-input">
+        <form class="search-form" on:submit|preventDefault>
+            <div class="search-input-wrapper">
                 <svg
+                    class="search-svg"
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"
                     fill="currentColor"
+                    aria-hidden="true"
                 >
                     <path
                         d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                     />
                 </svg>
                 <input
+                    class="search-input"
                     type="search"
                     placeholder="Games, Apps, Stories, and More"
                     bind:value={searchQuery}
@@ -38,14 +41,27 @@ let searchQuery = $state("");
     {#if !searchQuery}
         {#each page.shelves as shelf}
             <Shelf {shelf}>
-                <div class="search-links">
+                <ul class="search-links">
                     {#each shelf.items as item}
-                        <a href={item.url} class="search-link">
-                            <span class="search-icon">🔍</span>
-                            {item.title}
-                        </a>
+                        <li>
+                            <a href={item.url} class="search-link">
+                                <span class="search-icon" aria-hidden="true">
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                        />
+                                    </svg>
+                                </span>
+                                {item.title}
+                            </a>
+                        </li>
                     {/each}
-                </div>
+                </ul>
             </Shelf>
         {/each}
     {:else}
@@ -66,7 +82,7 @@ let searchQuery = $state("");
     }
 
     h1 {
-        font: var(--large-title);
+        font: var(--large-title-emphasized);
         margin-bottom: 20px;
     }
 
@@ -74,63 +90,77 @@ let searchQuery = $state("");
         max-width: 600px;
     }
 
-    .search-input {
+    .search-input-wrapper {
         position: relative;
-        display: flex;
-        align-items: center;
     }
 
-    .search-input svg {
+    .search-svg {
         position: absolute;
-        left: 12px;
-        color: var(--systemSecondary);
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        fill: var(--systemSecondary);
         pointer-events: none;
     }
 
-    .search-input input {
+    .search-input {
         width: 100%;
-        padding: 12px 12px 12px 44px;
-        font: var(--body);
+        height: 48px;
+        padding: 12px 12px 12px 40px;
+        font: var(--title-2);
         border: 1px solid var(--systemQuaternary);
         border-radius: var(--border-radius-medium);
         background: var(--systemQuinary);
         color: var(--systemPrimary);
     }
 
-    .search-input input:focus {
+    .search-input:focus {
         outline: 2px solid var(--keyColor);
         outline-offset: 2px;
         border-color: var(--keyColor);
     }
 
     .search-links {
-        display: flex;
-        flex-direction: column;
-        gap: 1px;
-        background: var(--systemQuaternary);
-        border-radius: var(--border-radius-medium);
-        overflow: hidden;
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 1fr;
+        padding: 0 var(--bodyGutter);
+    }
+
+    @media (min-width: 768px) {
+        .search-links {
+            grid-template-columns: 1fr 1fr;
+        }
     }
 
     .search-link {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 16px var(--bodyGutter);
-        background: var(--pageBg);
+        gap: 6px;
+        padding: 12px;
+        font: var(--title-2);
+        border-radius: var(--border-radius-large);
+        background: var(--systemQuinary);
         color: var(--systemPrimary);
         text-decoration: none;
-        font: var(--body);
-        transition: background-color 0.2s;
+        transition: background-color 0.2s ease;
     }
 
     .search-link:hover {
-        background: var(--systemQuinary);
+        background: var(--systemQuaternary);
+        text-decoration: none;
     }
 
     .search-icon {
-        font-size: 20px;
-        opacity: 0.5;
+        display: flex;
+    }
+
+    .search-icon svg {
+        width: 20px;
+        height: 20px;
+        fill: var(--systemSecondary);
     }
 
     .no-results {
