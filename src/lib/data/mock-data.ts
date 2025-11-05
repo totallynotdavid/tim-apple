@@ -1,19 +1,32 @@
 import type {
 	ArticleImageItem,
 	ArticleTextItem,
+	LockupItem,
 	ProductBadgeItem,
 	ProductDescriptionItem,
 	ProductMediaItem,
 	ProductRatingItem,
+	Shelf,
 	TodayCard,
 } from "$lib/types";
 
-const artwork = (w: number, h: number, text = "") => ({
-	url: `https://placehold.co/${w}x${h}/EEE/31343C?text=${text}`,
+const artwork = (w: number, h: number, color = "4A90E2", text = "") => ({
+	url: `https://placehold.co/${w}x${h}/${color}/FFFFFF?text=${encodeURIComponent(text)}`,
 	width: w,
 	height: h,
-	bgColor: "#f5f5f7",
+	bgColor: `#${color}`,
 });
+
+// Basketball player image
+const nbaImage = artwork(800, 1200, "E94B3C", "NBA+2K26");
+// Golf course image
+const golfImage = artwork(1600, 900, "2D5016", "PGA+TOUR");
+// Subway Surfers
+const subwayImage = artwork(800, 1200, "FF6B35", "Subway+Surfers");
+// Apple Pencil article
+const pencilImage = artwork(800, 1200, "F0F0F0", "Apple+Pencil");
+// Notion icon
+const notionIcon = artwork(200, 200, "FFFFFF", "N");
 
 export const mockData = {
 	navigation: {
@@ -33,47 +46,108 @@ export const mockData = {
 				contentType: "todayCard",
 				items: [
 					{
-						title: "Procreate Dreams",
-						heading: "Now Available",
+						title: "Play your favourite NBA era",
+						heading: "APPLE ARCADE",
 						style: "dark",
-						media: artwork(800, 600, "Procreate"),
+						media: nbaImage,
 						url: "/article/1",
+						lockup: {
+							title: "NBA 2K26 Arcade Edition",
+							subtitle: "Make History in Every Era",
+							icon: artwork(100, 100, "1C1C1E", "2K26"),
+							url: "/product/1",
+						} as LockupItem,
 					} as TodayCard,
 					{
-						title: "Stumble Guys",
-						heading: "Game of the Day",
+						title: "Become a PGA TOUR legend",
+						heading: "APPLE ARCADE",
 						style: "dark",
-						media: artwork(800, 600, "Stumble"),
-						url: "/product/1",
+						media: golfImage,
+						url: "/product/2",
+						lockup: {
+							title: "PGA TOUR Pro Golf",
+							subtitle: "Play world-famous golf courses",
+							icon: artwork(100, 100, "2D5016", "PGA"),
+							url: "/product/2",
+						} as LockupItem,
 					} as TodayCard,
 				],
 			},
 			{
-				id: "apps",
+				id: "more-featured",
+				title: "The Biggest Apps and Games",
 				contentType: "todayCard",
 				items: [
 					{
 						title: "Subway Surfers",
-						heading: "Featured Game",
+						heading: "FEATURED GAME",
 						style: "dark",
-						media: artwork(400, 600, "Subway"),
-						url: "/product/2",
+						media: subwayImage,
+						url: "/product/3",
 					} as TodayCard,
 					{
 						title: "Best Apple Pencil Apps",
-						heading: "Get Creative",
+						heading: "GET CREATIVE",
 						style: "light",
-						media: artwork(400, 600, "Apps"),
+						media: pencilImage,
 						url: "/article/2",
 					} as TodayCard,
 					{
 						title: "Notion",
-						heading: "App of the Day",
+						heading: "APP OF THE DAY",
 						style: "light",
-						media: artwork(200, 200, "Notion"),
-						url: "/product/3",
+						media: notionIcon,
+						url: "/product/4",
 						isAppIcon: true,
 					} as TodayCard,
+				],
+			},
+			{
+				id: "must-haves",
+				title: "Social media must-haves",
+				seeAllUrl: "/collection/social",
+				heading: "ESSENTIALS",
+				contentType: "lockup",
+				items: [
+					{
+						title: "BeReal: Photos & Friends Daily",
+						subtitle: "Share real moments, no filters",
+						icon: artwork(100, 100, "000000", "BeReal"),
+						url: "/product/5",
+					} as LockupItem,
+					{
+						title: "Microsoft Teams",
+						subtitle: "Call. Chat. Collaborate",
+						icon: artwork(100, 100, "5558AF", "Teams"),
+						url: "/product/6",
+					} as LockupItem,
+					{
+						title: "Snapchat",
+						subtitle: "Share the moment",
+						icon: artwork(100, 100, "FFFC00", "👻"),
+						url: "/product/7",
+					} as LockupItem,
+				],
+			},
+			{
+				id: "streaming",
+				title: "Stream solo or with company",
+				seeAllUrl: "/collection/streaming",
+				heading: "THE LIST",
+				contentType: "lockup",
+				items: [
+					{
+						title: "Viki: Asian Dramas, Movies, TV",
+						subtitle: "Watch KDramas, CDramas & more",
+						icon: artwork(100, 100, "17C4BB", "Viki"),
+						url: "/product/8",
+					} as LockupItem,
+					{
+						title: "Apple TV",
+						subtitle: "Originals, Live Sports & More",
+						icon: artwork(100, 100, "000000", "tv"),
+						url: "/product/9",
+					} as LockupItem,
 				],
 			},
 		],
@@ -84,7 +158,7 @@ export const mockData = {
 			title: "Procreate Dreams: Animation for Everyone",
 			heading: "Now Available",
 			style: "dark",
-			media: artwork(800, 600, "Procreate"),
+			media: artwork(800, 600, "000000", "Procreate"),
 			url: "/product/1",
 		} as TodayCard,
 		shelves: [
@@ -98,20 +172,24 @@ export const mockData = {
 			},
 			{
 				contentType: "image",
-				items: [{ artwork: artwork(1200, 675, "Feature") } as ArticleImageItem],
+				items: [
+					{
+						artwork: artwork(1200, 675, "5B5B5F", "Feature"),
+					} as ArticleImageItem,
+				],
 			},
 		],
 		footerApp: {
 			title: "Procreate",
 			subtitle: "Sketch, Paint, Create.",
-			icon: artwork(200, 200, "Icon"),
+			icon: artwork(200, 200, "FFFFFF", "Icon"),
 			url: "/product/1",
 		},
 	},
 
 	productPage: {
 		title: "Procreate",
-		icon: artwork(200, 200, "Procreate"),
+		icon: artwork(200, 200, "FFFFFF", "Procreate"),
 		subtitle: "Sketch, Paint, Create.",
 		price: "$12.99",
 		shelves: [
@@ -131,9 +209,15 @@ export const mockData = {
 			{
 				contentType: "media",
 				items: [
-					{ screenshot: artwork(1600, 900, "SS1") } as ProductMediaItem,
-					{ screenshot: artwork(1600, 900, "SS2") } as ProductMediaItem,
-					{ screenshot: artwork(1600, 900, "SS3") } as ProductMediaItem,
+					{
+						screenshot: artwork(1600, 900, "8B8B8F", "SS1"),
+					} as ProductMediaItem,
+					{
+						screenshot: artwork(1600, 900, "8B8B8F", "SS2"),
+					} as ProductMediaItem,
+					{
+						screenshot: artwork(1600, 900, "8B8B8F", "SS3"),
+					} as ProductMediaItem,
 				],
 			},
 			{

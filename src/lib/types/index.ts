@@ -12,15 +12,6 @@ export interface NavigationTab {
 	icon: string;
 }
 
-export interface TodayCard {
-	title: string;
-	heading?: string;
-	style: "dark" | "light";
-	media: Artwork;
-	url: string;
-	isAppIcon?: boolean;
-}
-
 export interface ProductBadgeItem {
 	type: "rating" | "award" | "age";
 	heading: string;
@@ -67,6 +58,16 @@ export interface LockupItem {
 	icon: Artwork;
 	title: string;
 	subtitle?: string;
+}
+
+export interface TodayCard {
+	title: string;
+	heading?: string;
+	style: "dark" | "light";
+	media: Artwork;
+	url: string;
+	isAppIcon?: boolean;
+	lockup?: LockupItem;
 }
 
 export type GridItem = unknown;
